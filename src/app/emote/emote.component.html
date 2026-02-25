@@ -1,0 +1,49 @@
+
+<div class="progress-container">
+  <progress class="progress-score" value="{{solvedPercent}}" max="100" style="--value: {{solvedPercent}}; --max: 100;"></progress>
+  <div class="progress-score">{{solved}}</div>
+</div>
+<div class="emote-name-container">
+  <h2 *ngIf="level > 6 || score == 100">{{emoteName}}</h2>
+</div>
+<div class="chat-container">
+  <img *ngIf="score != 100">
+  <img *ngIf="score == 100" class="fire" src="./fire.webp">
+  <img class="{{emoteStyle}}" src="{{emoteUrl}}" onerror="this.src='loading_78x78.webp'" loading="eager"/>
+  <img *ngIf="score == 100" class="fire" src="./fire.webp">
+  <img *ngIf="score != 100">
+</div> <!-- https://cdn.7tv.app/emote/{{emoteUrlId}}/4x.webp -->
+
+<div class="level-container">
+  <img *ngIf="score != 100 && level > 6" class="zalamka" src="./zalamka.webp">
+  @for (heart of hearts; track heart) {
+    <img src="./heart.png">
+  }
+  @for (heartbreak of heartbreaks; track heartbreak) {
+    <img src="./heartbreak.png">
+  }
+  <img *ngIf="score != 100 && level > 6" class="zalamka" src="./zalamka.webp">
+</div>
+<form *ngIf="score != 100 && level < 7" [formGroup]="guessForm" (ngSubmit)="guessEmote()" class="guess-form">
+  <div class="input-form">
+    <input type="text" id="guess" formControlName="guess" class="form-control" placeholder="np. VaporeonFeet">
+    <button type="button" (click)="lose()" [disabled]="level > 6 || score == 100">Skip</button>
+  </div>
+  <div class="guess-clue" *ngIf="level > 1 && level < 7">
+    <div id="cold" *ngIf="score >= 0   && score <  40">Nawet w połowie nie jesteś blisko</div>
+    <div id="mid"  *ngIf="score >= 40  && score <  80">Serio wierze że kiedyś Ci się uda</div>
+    <div id="hot"  *ngIf="score != 100 && score >= 80">Wiem że wiesz ale to nie przejdzie :/</div>
+  </div>
+  <div class="emote-controls">
+<!--     <button type="submit" class="btn btn-primary w-75 mt-3" [disabled]="guessForm.invalid || level > 6 || score == 100">Zgaduje!</button> -->
+<!--     <button type="button" (click)="lose()" [disabled]="level > 6 || score == 100">Skip →</button> -->
+  </div>
+</form>
+<div class="next-info">
+  <div *ngIf="level > 6 && score < 100">holipka :(</div>
+  <div *ngIf="score == 100">gg</div>
+  <button *ngIf="level > 6 || score == 100" (click)="next()">Go Next</button>
+</div>
+<div class="mode-note">
+  W zależności od prędkości internetu, pobieranie kolejnych emotek może zająć kilka sekund. Powinno być widać zmiane za blurem.
+</div>

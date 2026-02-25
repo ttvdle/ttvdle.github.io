@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ttvdle</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Patrick+Hand" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+  <section class="layout">
+    <div class="header">
+      <a href="/">
+        <img src="./7.png"><p>ttvdle</p>
+      </a>
+    </div>
+    <div class="leftSide">
+      <div class="controls">
+        <button onclick="switchToSS()">🏃‍</button>
+        <button onclick="switchToClicker()">👆</button>
+        <button onclick="hide()">❌</button>
+      </div>
+      <div id="leftSide-content">
+        <div id="dynamic-container" style="display: none">
+          <video id="dynamic-video" autoplay muted loop width="100%" height="100%">
+            <source src="./subwaysurfers.webm" type="video/webm">
+          </video>
+        </div>
+        <div id="clicker" style="display: none">
+          <div class="score">
+            <img src="./prime_30x30.png">
+            <span id="clicker-score">0</span>
+            <span id="clicker-power">0/miesiąc</span>
+          </div>
+          <div class="upgrade-effects">
+            <div id="tx2">12</div>
+            <div id="x2">x2</div>
+            <div id="x10">x10</div>
+          </div>
+          <div class="click">
+            <button id="click-button" onclick="clickMe()">Daj Suba!</button>
+            <img id="fajrancik" src="./fajrancik.jpg" style="display: none; width: 100%; height: 100%;">
+          </div>
+          <div class="upgrade-descriptions">
+            <div class="upgrade-description" id="upgrade-description-1">+1 prajm na miesiąc</div>
+            <div class="upgrade-description" id="upgrade-description-2">+1 prajm na miesiąc</div>
+            <div class="upgrade-description" id="upgrade-description-3">+20 prajmów na miesiąc</div>
+            <div class="upgrade-description" id="upgrade-description-4">x2 prajmów przez 12 miesięcy</div>
+            <div class="upgrade-description" id="upgrade-description-5">+500 prajmów na miesiąc</div>
+            <div class="upgrade-description" id="upgrade-description-6">x10 prajmów</div>
+            <div class="upgrade-description" id="upgrade-description-7">fajrancik</div>
+          </div>
+          <div class="upgrades">
+            <button id="upgrade-1" onclick="buyUpgrade(this, 1)">
+              <div class="upgrade-cost" id="upgrade-cost-1">0</div>
+              <div class="upgrade-text">Daj sobie prajma z alt konta</div>
+            </button>
+            <button id="upgrade-2" onclick="buyUpgrade(this, 2)">
+              <div class="upgrade-cost" id="upgrade-cost-2">50</div>
+              <div class="upgrade-text">Stwórz relacje parasocjalną z jednym z widzów</div>
+            </button>
+            <button id="upgrade-3" onclick="buyUpgrade(this, 3)">
+              <div class="upgrade-cost" id="upgrade-cost-3">5000</div>
+              <div class="upgrade-text">Zrajduj większy kanał</div>
+            </button>
+            <button id="upgrade-4" onclick="buyUpgrade(this, 4)">
+              <div class="upgrade-cost" id="upgrade-cost-4">2000</div>
+              <div class="upgrade-text">Kup boty na rok</div>
+            </button>
+            <button id="upgrade-5" onclick="buyUpgrade(this, 5)">
+              <div class="upgrade-cost" id="upgrade-cost-5">100000</div>
+              <div class="upgrade-text">Zainwestuj w greenscreen</div>
+            </button>
+            <button id="upgrade-6" onclick="buyUpgrade(this, 6)">
+              <div class="upgrade-cost" id="upgrade-cost-6">200000</div>
+              <div class="upgrade-text">Przeprowadź się na Malte</div>
+            </button>
+            <button id="upgrade-7" onclick="buyUpgrade(this, 7)">
+              <div class="upgrade-cost" id="upgrade-cost-7">1000000</div>
+              <div class="upgrade-text">Fajrancik</div>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!--<div class="channel-list-entry">
+        <a class="channel-info" href="./teskacz">
+          <img class="channel-image" src="https://static-cdn.jtvnw.net/jtv_user_pictures/617d509b-29d1-41e8-bcd6-6f10b2294296-profile_image-300x300.png">
+          <span>teskacz</span>
+        </a>
+        <img class="channel-stats" src="./stats-icon-w_32x32.png">
+      </div>-->
+    </div>
+    <div class="body">
+      <body>
+        <app-root></app-root>
+      </body>
+    </div>
+    <div class="rightSide">
+      <!--<iframe src="https://www.twitch.tv/embed/{{channelName}}/chat?parent=localhost&darkpopout"
+        height="100%"
+        width="100%"
+        allow-same-origin="true">
+      </iframe>-->
+    </div>
+    <div class="footer">
+      <a href="https://github.com" style="margin: 20px"><i class="fa fa-github" style="font-size: 24px; color: gray"></i></a>
+      <div class="tooltip">
+        <img src="./antiai2.png">
+        <span class="tooltiptext">strefa bez ai</span>
+      </div>
+    </div>
+  </section>
+</html>
+
+<script>
+  const scoreText = document.getElementById("clicker-score");
+  const powerText = document.getElementById("clicker-power");
+  const clickButton = document.getElementById("click-button");
+
+  const tx2 = document.getElementById("tx2");
+  const x2 = document.getElementById("x2");
+  const x10 = document.getElementById("x10");
+
+  var points = 0;
+  var power = 0;
+  var mult = 1;
+
+  var upgrades = [];
+  var upgradesCost = [0, 0, 50, 5000, 2000, 100000, 200000, 1000000];
+
+  var status = "none";
+  var statusTime = 0;
+
+  const clickTextList = ["Widzowie", "Dajcie", "Prajmika"];
+  var currentClickText = 2;
+
+  var savedScore = localStorage.getItem('clicker-score');
+  if(savedScore) {
+    points = parseInt(savedScore);
+    scoreText.textContent = points;
+  }
+  var savedPower = localStorage.getItem('clicker-power');
+  if(savedPower) {
+    power = parseInt(savedPower);
+    powerText.textContent = power + '/miesiąc';
+  }
+
+  loadUpgrades();
+
+  function addPoints() {
+    var powermult = power * mult;
+    switch(status) {
+      case "bots":
+        if(statusTime >= 1) {
+          points += (powermult * 2);
+          statusTime -= 1;
+          tx2.textContent = statusTime;
+        } else {
+          points += (powermult * 2);
+          statusTime = 0;
+          status = "none";
+          power -= 100;
+          if(power < 1) { power = 1; }
+          powerText.textContent = power + '/miesiąc';
+          tx2.style.display = "none";
+          x2.style.display = "none";
+        }
+        break;
+      case "none":
+        points += powermult;
+        break;
+      default:
+        console.log("← glupek");
+        points += powermult;
+        break;
+    }
+    scoreText.textContent = points;
+    localStorage.setItem('clicker-score', '' + points);
+  }
+
+  function switchText() {
+    currentClickText += 1;
+    if(currentClickText >= clickTextList.length) {
+      currentClickText = 0;
+    }
+    clickButton.textContent = clickTextList[currentClickText];
+  }
+
+  function playClickSound() {
+    if(power > 0) {
+      const clickSound = new Audio("coindrop.mp3");
+      clickSound.play();
+    }
+  }
+
+  function clickMe() {
+    addPoints();
+    switchText();
+    playClickSound();
+  }
+
+  function buyUpgrade(element, upgrade) {
+    switch(upgrade) {
+      case 1:
+        power += 1;
+        element.style.display = "none";
+        upgrades.push("1");
+        saveUpgrades();
+        break;
+      case 2:
+        if(points >= upgradesCost[2]) {
+          points -= upgradesCost[2];
+          power += 1;
+          upgradesCost[2] += 40;
+          var el = document.getElementById("upgrade-cost-" + upgrade);
+          el.textContent = upgradesCost[2];
+        }
+        break;
+      case 3:
+        if(points >= upgradesCost[3]) {
+          points -= upgradesCost[3];
+          power += 20;
+          upgradesCost[3] += 4000;
+          var el = document.getElementById("upgrade-cost-" + upgrade);
+          el.textContent = upgradesCost[3];
+        }
+        break;
+      case 4:
+        if(points >= upgradesCost[4]) {
+          points -= upgradesCost[4];
+          status = "bots";
+          statusTime += 12;
+          x2.style.display = "flex";
+          tx2.style.display = "flex";
+          tx2.textContent = statusTime;
+        }
+        break;
+      case 5:
+        if(points >= upgradesCost[5]) {
+          points -= upgradesCost[5];
+          power += 500;
+          element.style.display = "none";
+          upgrades.push("5");
+          saveUpgrades();
+        }
+        break;
+      case 6:
+        if(points >= upgradesCost[6]) {
+          points -= upgradesCost[6];
+          mult = 10;
+          element.style.display = "none";
+          upgrades.push("6");
+          saveUpgrades();
+          x2.style.display = "flex";
+        }
+        break;
+      case 7:
+        if(points >= upgradesCost[7]) {
+          points -= upgradesCost[7];
+          element.style.display = "none";
+          upgrades.push("7");
+          saveUpgrades();
+          fajrancik();
+        }
+        break;
+      default:
+        console.log("jakiś glupek to projektował chyba");
+        break;
+    }
+    scoreText.textContent = points;
+    powerText.textContent = power + '/miesiąc';
+    localStorage.setItem('clicker-score', points);
+    localStorage.setItem('clicker-power', power);
+  }
+
+  function saveUpgrades() {
+    var upgradeString = '';
+    for(var upgrade of upgrades) {
+      upgradeString = upgradeString + upgrade + ',';
+    }
+    localStorage.setItem('clicker-upgrades', upgradeString);
+  }
+
+  function loadUpgrades() {
+    var upgradeString = localStorage.getItem('clicker-upgrades');
+    if(!upgradeString) { return; }
+    upgrades = upgradeString.split(',');
+    for(var upgrade of upgrades) {
+      var el = document.getElementById("upgrade-" + upgrade);
+      if(el)
+        el.style.display = "none";
+      if(upgrade == "6"){
+        mult = 10;
+        x10.style.display = "flex";
+      }
+      if(upgrade == "7")
+        fajrancik();
+    }
+  }
+
+  function fajrancik() {
+    clickButton.style.display = "none";
+    var fajrancik = document.getElementById("fajrancik");
+    fajrancik.style.display = "block";
+  }
+
+</script>
+
+<script>
+
+  var currentContainer = null;
+
+  function switchToSS() {
+    const vc = document.getElementById("dynamic-container");
+    if (vc.style.display === "none") {
+      if(currentContainer != null) { currentContainer.style.display = "none"; }
+      vc.style.display = "block";
+      currentContainer = vc;
+    } else {
+      vc.style.display = "none";
+    }
+  }
+
+  function switchToClicker() {
+    const cc = document.getElementById("clicker");
+    if (cc.style.display === "none") {
+      if(currentContainer != null) { currentContainer.style.display = "none"; }
+      cc.style.display = "block";
+      currentContainer = cc;
+    } else {
+      cc.style.display = "none";
+    }
+  }
+
+  function hide() {
+    if(currentContainer != null) { currentContainer.style.display = "none"; }
+    currentContainer = null;
+  }
+
+  function scaleVideo() {
+    const video = document.getElementById('dynamic-video');
+    const container = document.getElementById('dynamic-container');
+
+    video.addEventListener('loadedmetadata', () => {
+      const videoAspect = video.videoWidth / video.videoHeight;
+      const containerWidth = container.clientWidth;
+      const containerHeight = container.clientHeight;
+      const containerAspect = containerWidth / containerHeight;
+
+      if (videoAspect > containerAspect) {
+        video.style.width = '100%';
+        video.style.height = 'auto';
+      } else {
+        video.style.height = '100%';
+        video.style.width = 'auto';
+      }
+    });
+  }
+
+  window.addEventListener('load', scaleVideo);
+  window.addEventListener('resize', scaleVideo);
+</script>
+

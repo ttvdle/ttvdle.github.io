@@ -1,0 +1,64 @@
+h2 {
+  font-family: aileron-bold;
+  color: var(--base-color2);
+
+}
+
+input {
+  color: var(--text-color1);
+  background-color: var(--background-color1);
+  background-clip: padding-box;
+  border-radius: 8px;
+  border-width: 0.05rem;
+  font-size: 1.6rem;
+  padding: 0.3rem;
+  outline: none;
+}
+
+.container {
+  height: 100%;
+}
+
+.channel-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  height: 100%;
+  align-items: center;
+}
+.channel-container h2 {
+  text-align: center;
+}
+
+.text-submit {
+  display: flex;
+  align-items: center;
+}
+
+.text-danger {
+  color: var(--base-color1);
+  text-shadow: 1px 1px 3px var(--background-color3);
+  font-size: 0.9rem;
+}
+
+button {
+  height: 2.6rem;
+  border-radius: 9000px;
+  border: 0;
+  background: 0;
+  color: #ffffff;
+  background-color: var(--button-color);
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-family: regular-bold;
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin-left: 0.5rem;
+}
+button:hover {
+  background-color: var(--button-color-hover);
+}
+button:active {
+  background-color: var(--button-color-active);
+}

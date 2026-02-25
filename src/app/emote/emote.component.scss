@@ -1,0 +1,278 @@
+
+.emote-name-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5rem;
+}
+
+h2 {
+  margin: 0;
+  font-family: aileron-bold;
+  font-size: 4rem;
+  color: var(--base-color2);
+  text-align: center;
+}
+
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.progress-score {
+  width: 100%;
+  text-align: center;
+}
+
+.img-container {
+  position: relative;
+  min-height: 0;
+  min-width: 0;
+}
+
+.chat-resize {
+  background-color: white;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  scale: 0.04;
+}
+
+.chat-container {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  justify-content: space-evenly;
+  overflow: hidden;
+  border: 0.1rem solid var(--background-color3);
+  border-left: 0;
+  border-right: 0;
+  padding: 0.3rem;
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 0.2rem;
+  margin-left: 0;
+  margin-right: 0;
+  background-color: var(--background-color1);
+  width: 100%;
+  height: 30%;
+  min-height: 0;
+  min-width: 0;
+}
+
+.level-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    margin: 0.2rem;
+  }
+}
+
+.fire {
+}
+.zalamka {
+  width: 6rem;
+  height: 4rem;
+}
+
+.emote-loaded {
+}
+
+.emote-loading {
+}
+
+.blur-0 {
+  filter: blur(25px);
+}
+.blur-1 {
+  filter: blur(20px);
+}
+.blur-2 {
+  filter: blur(15px);
+}
+.blur-3 {
+  filter: blur(10px);
+}
+.blur-4 {
+  filter: blur(5px);
+}
+.blur-5 {
+  filter: blur(3px);
+}
+
+button {
+  height: 2.6rem;
+  border-radius: 9000px;
+  border: 0;
+  background: 0;
+  color: #ffffff;
+  background-color: var(--button-color);
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-family: regular-bold;
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+button:hover {
+  background-color: var(--button-color-hover);
+}
+button:active {
+  background-color: var(--button-color-active);
+}
+
+.guess-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+  .input-form {
+    display: flex;
+    align-items: center;
+    margin: auto;
+  }
+}
+
+input {
+  color: var(--text-color1);
+  background-color: var(--background-color1);
+  background-clip: padding-box;
+  border-radius: 8px;
+  border-width: 0.05rem;
+  font-size: 1.6rem;
+  padding: 0.3rem;
+  outline: none;
+  width: 80%;
+  margin-right: 0.4rem;
+}
+
+.emote-controls {
+  display: flex;
+  width: 40%;
+  margin: auto;
+  margin-top: 0.5rem;
+  justify-content: center;
+}
+
+.channel-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  height: 100%;
+  align-items: center;
+}
+
+.guess-clue {
+  display: flex;
+  margin: auto;
+  width: 25rem;
+}
+#cold {
+  color: lightblue;
+}
+#mid {
+  color: orange;
+}
+#hot {
+  color: red;
+}
+
+.next-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  * {
+    margin: auto;
+  }
+  button {
+    margin-top: 0.3rem;
+  }
+  div {
+    font-family: milker;
+    font-size: 2rem;
+  }
+}
+
+.mode-note {
+  display: flex;
+  margin-top: 8rem;
+  margin-left: 10rem;
+  margin-right: 10rem;
+  font-family: aileron-bold;
+  font-size: 1rem;
+  color: gray;
+  opacity: 0.2;
+}
+.mode-note:hover {
+  opacity: 1;
+}
+
+progress[value] {
+  display: block;
+  position: relative;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border: 0;
+  --border-radius: 10px;
+  border-radius: var(--border-radius);
+  counter-reset: progress var(--progress-value);
+  --progress-max-decimal: calc(var(--value, 0) / var(--max, 0));
+  --progress-value-decimal: calc(var(--progress-value, 0) / var(--max, 0));
+  @supports selector(::-moz-progress-bar) {
+    --progress-value-decimal: calc(var(--value, 0) / var(--max, 0));
+  }
+
+  --progress-value-percent: calc(var(--progress-value-decimal) * 100%);
+  animation: calc(3s * var(--progress-max-decimal)) linear 0.5s 1 normal both progress;
+}
+
+progress[value]::-webkit-progress-bar {
+  background-color: var(--progress-bar-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+progress[value]::-webkit-progress-value {
+  width: var(--progress-value-percent) !important;
+  background-color: var(--progress-value-color);
+  border-radius: var(--border-radius);
+}
+
+progress[value]::-moz-progress-bar {
+  width: var(--progress-value-percent) !important;
+  background-color: var(--progress-value-color);
+  border-radius: var(--border-radius);
+}
+
+progress[value]::after {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --size: 32px;
+  width: var(--size);
+  height: var(--size);
+  position: absolute;
+  left: var(--progress-value-percent);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--progress-value-color);
+  border-radius: 50%;
+  content: attr(value);
+  content: var(--progress-value-string, var(--value));
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+}
+
+@keyframes progress {
+  from {
+    --progress-value: 0;
+  } to {
+    --progress-value: var(--value);
+  }
+}
+

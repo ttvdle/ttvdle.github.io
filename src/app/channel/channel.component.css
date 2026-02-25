@@ -1,0 +1,56 @@
+
+
+
+.channel-name {
+  display: flex;
+  justify-content: center;
+  h2 {
+    font-family: milker;
+    font-size: 3rem;
+    padding-top: 0.4rem;
+  }
+  img {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 0.4rem;
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+.mode-list {
+  display: flex;
+  flex-direction: column;
+  .mode-row {
+    display: flex;
+    width: 60%;
+    margin: auto;
+    margin-bottom: 3rem;
+    justify-content: space-between;
+    .mode img:hover {
+      scale: 1.1;
+    }
+  }
+}
+.mode-info-container {
+  height: 3rem;
+  margin-bottom: 1rem;
+}
+.mode-info {
+  display: none;
+  justify-content: center;
+  color: var(--base-color1);
+  font-family: aileron-bold;
+  font-size: 1.1rem;
+}
+#mode-info-base {
+  color: yellow;
+  display: flex;
+}
+.container:has(.mode:hover) #mode-info-base { display: none; }
+.container:has(#mode-0:hover) #mode-info-0 { display: flex; }
+.container:has(#mode-1:hover) #mode-info-1 { display: flex; }
+.container:has(#mode-2:hover) #mode-info-2 { display: flex; }
+.container:has(#mode-3:hover) #mode-info-3 { display: flex; }
+.container:has(#mode-4:hover) #mode-info-4 { display: flex; }
+.container:has(#mode-5:hover) #mode-info-5 { display: flex; }

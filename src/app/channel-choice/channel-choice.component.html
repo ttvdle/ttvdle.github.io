@@ -1,0 +1,17 @@
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="channel-container card p-4 shadow-sm">
+      <h2 class="text-center mb-4">Podaj nazwę kanału twitch</h2>
+      <form [formGroup]="channelForm" (ngSubmit)="search()" class="d-flex flex-column align-items-center">
+        <div class="mb-3 col-10">
+          <div class="text-submit">
+            <input type="text" id="channelName" formControlName="channelName" class="form-control" placeholder="np. RaczQ">
+            <button type="submit" class="btn btn-primary w-75 mt-3" [disabled]="channelForm.invalid">Wybieram Cie!</button>
+          </div>
+          <div *ngIf="channelForm.controls['channelName'].invalid && channelForm.controls['channelName'].touched" class="text-danger">
+            A może chociaż wpiszesz poprawnie :/
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>

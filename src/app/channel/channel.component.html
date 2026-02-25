@@ -1,0 +1,35 @@
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="channel-container card p-4 shadow-sm">
+      <div class="channel-name">
+        <img *ngIf="channelName == 'AlbiSuperBryka' || channelName == 'RaczQ' || channelName == 'teskacz'" src="./vip.png">
+        <h2 class="text-center mb-4">{{channelName}}</h2>
+      </div>
+
+      <div class="mode-info-container">
+          <div class="mode-info" id="mode-info-base">Część trybów jest dostępna tylko w trakcie trwania streama.</div>
+        @for (modeinfo of infoList; track modeinfo; let idx = $index) {
+          <div class="mode-info" id="mode-info-{{idx}}">{{modeinfo}}</div>
+        }
+      </div>
+      <div class="mode-list">
+        <div class="mode-row">
+          <a   class="mode" id="mode-0" routerLink="/{{channelName}}/emote/7tv"><img src="./emotki_128x128.png"></a>
+          <div class="mode" id="mode-0" *ngIf="false"><img src="./emotki_alt_128x128.png"></div>
+          <a   class="mode" id="mode-1" *ngIf="isStreaming" routerLink="/{{channelName}}/emote/7tv/top"><img src="./emotki100_128x128.png"></a>
+          <div class="mode" id="mode-1" *ngIf="!isStreaming"><img src="./emotki100_alt_128x128.png"></div>
+        </div>
+        <div class="mode-row">
+          <a   class="mode" id="mode-2" *ngIf="isStreaming" routerLink="/{{channelName}}/chatter"><img src="./czat_128x32.png"></a>
+          <div class="mode" id="mode-2" *ngIf="!isStreaming"><img src="./czat_alt_128x32.png"></div>
+          <a   class="mode" id="mode-3" *ngIf="isStreaming" routerLink="/{{channelName}}/chatter/top"><img src="./czat100_128x32.png"></a>
+          <div class="mode" id="mode-3" *ngIf="!isStreaming"><img src="./czat100_alt_128x32.png"></div>
+        </div>
+        <div class="mode-row">
+          <a   class="mode" id="mode-4" *ngIf="isFollowAvailable" routerLink="/{{channelName}}/follower"><img src="./follow_128x128.png"></a>
+          <div class="mode" id="mode-4" *ngIf="!isFollowAvailable"><img src="./follow_alt_128x128.png"></div>
+          <a   class="mode" id="mode-5" *ngIf="isABCAvailable" routerLink="/{{channelName}}/follower/abc"><img src="./abc_128x128.png"></a>
+          <div class="mode" id="mode-5" *ngIf="!isABCAvailable"><img src="./abc_alt_128x128.png"></div>
+        </div>
+      </div>
+  </div>
+</div>
