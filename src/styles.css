@@ -120,8 +120,13 @@ body {
   overflow: hidden;
   border-bottom: 0.1rem solid var(--background-color3);
 }
-
-.leftSide .controls {
+.rside {
+  justify-content: end;
+}
+.lside {
+  justify-content: start;
+}
+.controls {
   display: flex;
   border-bottom: 0.1rem solid var(--background-color3);
   background-color: var(--background-color2);
@@ -333,8 +338,13 @@ body:has(#upgrade-7:hover) #upgrade-description-7 { display: flex; }
   border: 0.1rem solid var(--background-color3);
 }
 .rightSide {
+  display: flex;
+  flex-direction: column;
   grid-area: rightSide;
   border-bottom: 0.1rem solid var(--background-color3);
+}
+.rightSide #rightSide-content {
+  height: 100%;
   iframe {
     display: none;
     border: 0;

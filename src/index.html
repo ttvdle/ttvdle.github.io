@@ -16,10 +16,10 @@
       </a>
     </div>
     <div class="leftSide">
-      <div class="controls">
+      <div class="controls lside">
         <button onclick="switchToSS()">🏃‍</button>
         <button onclick="switchToClicker()">👆</button>
-        <button onclick="hide()">❌</button>
+        <button onclick="hideLeft()">❌</button>
       </div>
       <div id="leftSide-content">
         <div id="dynamic-container" style="display: none">
@@ -97,11 +97,17 @@
       </body>
     </div>
     <div class="rightSide">
-      <iframe id="chat-embed" src="https://www.twitch.tv/embed/raczq/chat?parent=ttvdle.github.io&darkpopout"
-        height="100%"
-        width="100%"
-        allow-same-origin="true">
-      </iframe>
+      <div class="controls rside">
+        <button onclick="hideRight()">❌</button>
+        <button onclick="switchToChat()">📝‍</button>
+      </div>
+      <div id="rightSide-content">
+        <iframe id="chat-embed" src="https://www.twitch.tv/embed/raczq/chat?parent=ttvdle.github.io&darkpopout"
+          height="100%"
+          width="100%"
+          allow-same-origin="true">
+        </iframe>
+      </div>
     </div>
     <div class="footer">
       <a href="https://github.com/ttvdle/ttvdle.github.io" style="margin: 20px"><i class="fa fa-github" style="font-size: 24px; color: gray"></i></a>
@@ -119,9 +125,22 @@
   var channelName = localStorage.getItem("channelName");
   if(channelName) {
     chatEmbed.src = "https://www.twitch.tv/embed/" + channelName + "/chat?parent=ttvdle.github.io&darkpopout";
-    chatEmbed.style.display = "block";
+    chatEmbed.style.display = "none";
   } else {
     chatEmbed.style.display = "none";
+  }
+
+  function switchToChat() {
+    if (chatEmbed.style.display == "none") {
+      chatEmbed.style.display = "block";
+    } else {
+      chatEmbed.style.display = "none";
+    }
+  }
+  function hideRight() {
+    if(chatEmbed) {
+      chatEmbed.style.display = "none";
+    }
   }
 </script>
 
@@ -345,7 +364,7 @@
     }
   }
 
-  function hide() {
+  function hideLeft() {
     if(currentContainer != null) { currentContainer.style.display = "none"; }
     currentContainer = null;
   }
