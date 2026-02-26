@@ -335,6 +335,10 @@ body:has(#upgrade-7:hover) #upgrade-description-7 { display: flex; }
 .rightSide {
   grid-area: rightSide;
   border-bottom: 0.1rem solid var(--background-color3);
+  iframe {
+    display: none;
+    border: 0;
+  }
 }
 .footer {
   grid-area: footer;

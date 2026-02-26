@@ -97,7 +97,7 @@
       </body>
     </div>
     <div class="rightSide">
-      <iframe src="https://www.twitch.tv/embed/raczq/chat?parent=ttvdle.github.io&darkpopout"
+      <iframe id="chat-embed" src="https://www.twitch.tv/embed/raczq/chat?parent=ttvdle.github.io&darkpopout"
         height="100%"
         width="100%"
         allow-same-origin="true">
@@ -112,6 +112,18 @@
     </div>
   </section>
 </html>
+
+<script>
+  const chatEmbed = document.getElementById("chat-embed");
+
+  var channelName = localStorage.getItem("channelName");
+  if(channelName) {
+    chatEmbed.src = "https://www.twitch.tv/embed/" + channelName + "/chat?parent=ttvdle.github.io&darkpopout";
+    chatEmbed.style.display = "block";
+  } else {
+    chatEmbed.style.display = "none";
+  }
+</script>
 
 <script>
   const scoreText = document.getElementById("clicker-score");
