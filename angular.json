@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "baseHref": "/ttvdle.github.io/",
+            "baseHref": "https://ttvdle.github.io/browser/",
             "outputPath": "dist/twitchdle",
             "index": "src/index.html",
             "browser": "src/main.ts",
