@@ -17,6 +17,7 @@ export class Channel implements OnInit {
   channelId: string | null = null;
 
   isStreaming: Boolean = false;
+  isChatterAvailable: Boolean = false;
   isFollowAvailable: Boolean = false;
   isABCAvailable: Boolean = false;
 

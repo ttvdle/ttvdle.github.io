@@ -13,6 +13,18 @@ const DISTANCEVC: number = 3;
 const DISTANCEC: number = 8;
 const DISTANCEF: number = 15;
 
+function shuffle(array: Array<string>) {
+  let currentIndex = array.length;
+
+  while (currentIndex != 0) {
+    let randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+}
+
 function isEmoteAnimated(obj: EmoteTop, src: string) {
   var request = new XMLHttpRequest();
   request.open('GET', src, true);
@@ -58,6 +70,7 @@ export class EmoteTop {
 
   emoteFullList: Array<any> | null = null;
   emoteList: Array<string> | null = null;
+  emoteShuffledList: Array<string> | null = null;
   emoteId: number | null = null;
   emoteUrl: string | null = null;
   emoteName: string | null = null;
@@ -94,6 +107,8 @@ export class EmoteTop {
           this.emoteFullList = response.body.sevenTVEmotes;
           if(this.emoteFullList) {
             this.emoteList = this.emoteFullList.map(s => s.emote);
+            this.emoteShuffledList = this.emoteList.slice();
+            shuffle(this.emoteShuffledList);
 
             this.emoteId = this.getRandomId();
             this.emoteUrl = 'https://cdn.7tv.app/emote/' + this.emoteFullList[this.emoteId].id + '/4x.webp';
@@ -151,9 +166,6 @@ export class EmoteTop {
             geurl = 'https://cdn.7tv.app/emote/' + this.emoteFullList[geid].id + '/4x.webp';
             gen = this.emoteFullList[geid].amount;
           }
-          console.log("distance: " + distance);
-          console.log("geid: " + geid);
-          console.log("answer: " + this.emoteId);
           if(distance <= DISTANCEVC) distanceClue = 'very-close';
           else if(distance <= DISTANCEC) distanceClue = 'close';
           else if(distance <= DISTANCEF) distanceClue = 'far';

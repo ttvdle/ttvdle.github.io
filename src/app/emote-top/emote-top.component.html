@@ -62,6 +62,7 @@
   <input type="hidden" id="next-button-input" *ngIf="status != 'game'" (blur)="autofocus()" (keydown.enter)="next()">
   <button id="next-button" *ngIf="status != 'game'" (click)="next()">Go Next</button>
 </div>
+
 <div class="mode-note">
   <div id="distance-note-left" class="distance-note">
     <div class="color-note"><img src="./veryclose.png"><span> - bardzo blisko (+/- 3 miejsca)</span></div>
@@ -78,7 +79,7 @@
 </div>
 
 <datalist id="emotes">
-  @for(emote of emoteList; track emote; let idx = $index) {
+  @for(emote of emoteShuffledList; track emote; let idx = $index) {
     <option>
       <div>{{emote}}</div>
     </option>
