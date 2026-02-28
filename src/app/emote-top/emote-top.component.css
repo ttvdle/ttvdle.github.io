@@ -90,11 +90,11 @@ input {
   background-color: #770000;
 }
 .high {
-  background-image: url(/higher.png);
+  background-image: url(/browser/higher.png);
   background-repeat: repeat;
 }
 .low {
-  background-image: url(/lower.png);
+  background-image: url(/assets/lower.png);
   background-repeat: repeat;
 }
 .very-close {
@@ -223,71 +223,5 @@ input {
   }
   #distance-note-left {
     margin-right: 1rem;
-  }
-}
-
-progress[value] {
-  display: block;
-  position: relative;
-  appearance: none;
-  width: 100%;
-  height: 6px;
-  border: 0;
-  --border-radius: 10px;
-  border-radius: var(--border-radius);
-  counter-reset: progress var(--progress-value);
-  --progress-max-decimal: calc(var(--value, 0) / var(--max, 0));
-  --progress-value-decimal: calc(var(--progress-value, 0) / var(--max, 0));
-  @supports selector(::-moz-progress-bar) {
-    --progress-value-decimal: calc(var(--value, 0) / var(--max, 0));
-  }
-
-  --progress-value-percent: calc(var(--progress-value-decimal) * 100%);
-  animation: calc(3s * var(--progress-max-decimal)) linear 0.5s 1 normal both progress;
-}
-
-progress[value]::-webkit-progress-bar {
-  background-color: var(--progress-bar-color);
-  border-radius: var(--border-radius);
-  overflow: hidden;
-}
-
-progress[value]::-webkit-progress-value {
-  width: var(--progress-value-percent) !important;
-  background-color: var(--progress-value-color);
-  border-radius: var(--border-radius);
-}
-
-progress[value]::-moz-progress-bar {
-  width: var(--progress-value-percent) !important;
-  background-color: var(--progress-value-color);
-  border-radius: var(--border-radius);
-}
-
-progress[value]::after {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  --size: 32px;
-  width: var(--size);
-  height: var(--size);
-  position: absolute;
-  left: var(--progress-value-percent);
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background-color: var(--progress-value-color);
-  border-radius: 50%;
-  content: attr(value);
-  content: var(--progress-value-string, var(--value));
-  font-size: 12px;
-  font-weight: 700;
-  color: #fff;
-}
-
-@keyframes progress {
-  from {
-    --progress-value: 0;
-  } to {
-    --progress-value: var(--value);
   }
 }
