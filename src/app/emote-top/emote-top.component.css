@@ -94,7 +94,7 @@ input {
   background-repeat: repeat;
 }
 .low {
-  background-image: url(/assets/lower.png);
+  background-image: url(/browser/lower.png);
   background-repeat: repeat;
 }
 .very-close {
