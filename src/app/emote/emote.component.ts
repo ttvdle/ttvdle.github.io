@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { compareTwoStrings } from 'string-similarity';
@@ -49,6 +49,15 @@ export class Emote {
     this.channelName = localStorage.getItem('channelName');
     this.channelId = localStorage.getItem('channelId');
 
+    document.body.addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        //event.preventDefault();
+        var nextButton = document.getElementById("next-button");
+        if(nextButton)
+          nextButton.click();
+      }
+    });
+
     this.http.get('https://api.7tv.app/v3/users/twitch/' + this.channelId, { observe: 'response' }).subscribe({
       next: (response: any) => {
         console.log(response);
@@ -77,6 +86,16 @@ export class Emote {
       error: err => {
       }
     });
+  }
+
+  @ViewChild('input', { static: false })
+  set input(element: ElementRef<HTMLInputElement>) {
+    if(element) {
+      element.nativeElement.focus()
+    }
+  }
+  ngAfterViewInit() {
+    this.autofocus();
   }
 
   unpackArray(): Array<number> {
@@ -133,13 +152,16 @@ export class Emote {
       this.solvedPercent = Math.floor(((this.solvedEmotesIds.length + 1) / this.allEmotesIds.length) * 100);
       this.solved = (this.solvedEmotesIds.length + 1) + '/' + this.allEmotesIds.length;
     }
+    this.autofocus();
   }
 
   lose() {
     if(this.level < 7)
       this.skip();
-    if(this.level == 7)
+    if(this.level == 7) {
       console.log(this.emoteName);
+      this.autofocus();
+    }
     var heart = this.hearts.pop();
     if(heart)
       this.heartbreaks.push(heart);
@@ -165,5 +187,19 @@ export class Emote {
     this.refreshEmote();
     this.hearts = [1,1,1,1,1,1];
     this.heartbreaks = [];
+  }
+
+  autofocus() {
+    setTimeout(()=>{
+      if(this.level > 6 || this.score == 100) {
+        var nextButtonInput = document.getElementById('next-button-input');
+        if(nextButtonInput)
+          nextButtonInput.focus();
+      } else {
+        var guessInput = document.getElementById('guess');
+        if(guessInput)
+          guessInput.focus();
+      }
+    },0);
   }
 }

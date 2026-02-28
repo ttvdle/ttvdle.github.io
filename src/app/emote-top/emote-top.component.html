@@ -1,1 +1,86 @@
-<p>emote-top works!</p>
+
+<div class="progress-container">
+  <progress class="progress-score" value="{{solvedEmotes}}" max="100" style="--value: {{solvedEmotes}}; --max: 100;"></progress>
+  <div class="progress-score">{{solvedEmotes}}/100</div>
+</div>
+<h2 *ngIf="status == 'game' && lives == maxlives">Wpisz emotke żeby zacząć</h2>
+<div class="level-container">
+  <img *ngIf="status == 'lose'" class="zalamka" src="./zalamka.webp">
+  <img *ngIf="status == 'win'" class="hura" src="./hura.webp">
+  @for (heart of hearts; track heart) {
+    <img src="./heart.png">
+  }
+  @for (heartbreak of heartbreaks; track heartbreak) {
+    <img src="./heartbreak.png">
+  }
+  <img *ngIf="status == 'win'" class="hura" src="./hura.webp">
+  <img *ngIf="status == 'lose'" class="zalamka" src="./zalamka.webp">
+</div>
+<form *ngIf="status == 'game'" [formGroup]="guessForm" (ngSubmit)="guessEmote()" class="guess-form">
+  <div class="input-form">
+    <input type="text" id="guess" formControlName="guess" class="form-control" placeholder="" list="emotes" (blur)="autofocus()" autofucus #input>
+    <button type="button" (click)="loseLife()" [disabled]="status != 'game'">Skip</button>
+  </div>
+</form>
+<div class="clues-container">
+  <table>
+    <tr class="answer-container" *ngIf="status != 'game'">
+      <th *ngIf="status != 'game'" class="cat-1"><img src="{{emoteUrl}}"/></th>
+      <th *ngIf="status != 'game'" class="cat-2"><div class="table-category">{{emoteId}}</div></th>
+      <th *ngIf="status != 'game'" class="cat-3"><div class="table-category">{{emoteName}}</div></th>
+      <th *ngIf="status != 'game'" class="cat-4"><div class="table-category">{{emoteCount}}</div></th>
+      <th *ngIf="status != 'game'" class="cat-5"><div class="table-category">{{emoteAnimated}}</div></th>
+    </tr>
+    <tr class="table-divide"></tr>
+    <tr class="table-divide"></tr>
+    <tr class="table-divide"></tr>
+    <tr class="table-divide"></tr>
+    <tr class="table-divide"></tr>
+    <tr class="table-divide"></tr>
+    <tr class="description-container">
+      <th class="cat-1"><div class="table-category">Emotka</div></th>
+      <th class="cat-2"><div class="table-category">Miejsce</div></th>
+      <th class="cat-3"><div class="table-category">Nazwa</div></th>
+      <th class="cat-4"><div class="table-category">Liczba wysłanych</div></th>
+      <th class="cat-5"><div class="table-category">Animowana</div></th>
+    </tr>
+    @for(guessEntry of guessList; track guessEntry; let idx = $index){
+      <tr class="table-divide"></tr>
+      <tr>
+        <th class="{{guessEntry[8]}} cat-1"><img src="{{guessEntry[3]}}"></th>
+        <th class="{{guessEntry[5]}} cat-2"><div class="table-clue">{{guessEntry[0]}}</div></th>
+        <th class="{{guessEntry[6]}} cat-3"><div class="table-clue">{{guessEntry[1]}}</div></th>
+        <th class="{{guessEntry[7]}} cat-4"><div class="table-clue bg-contrast">{{guessEntry[2]}}</div></th>
+        <th class="{{guessEntry[9]}} cat-5"><div class="table-clue">{{guessEntry[4]}}</div></th>
+<!--         <th *ngIf="!thirdClue"><div class="table-clue">???</div></th> -->
+      </tr>
+    }
+  </table>
+</div>
+
+<div class="next-info">
+  <input type="hidden" id="next-button-input" *ngIf="status != 'game'" (blur)="autofocus()" (keydown.enter)="next()">
+  <button id="next-button" *ngIf="status != 'game'" (click)="next()">Go Next</button>
+</div>
+<div class="mode-note">
+  <div id="distance-note-left" class="distance-note">
+    <div class="color-note"><img src="./veryclose.png"><span> - bardzo blisko (+/- 3 miejsca)</span></div>
+    <div class="color-note"><img src="./close.png"><span> - blisko (+/- 8 miejsc)</span></div>
+    <div class="color-note"><img src="./far.png"><span> - daleko (+/- 15 miejsc)</span></div>
+    <div class="color-note"><img src="./veryfar.png"><span> - bardzo daleko</span></div>
+  </div>
+  <div class="correct-note">
+    <div class="color-note"><img src="./correct.png"><span> - zgadza się z szukaną emotką</span></div>
+    <div class="color-note"><img src="./incorrect.png"><span> - nie zgadza się z szukaną emotką</span></div>
+    <div class="color-note"><img src="./higher_info.png"><span> - więcej razy wysłana</span></div>
+    <div class="color-note"><img src="./lower_info.png"><span> - mniej razy wysłana</span></div>
+  </div>
+</div>
+
+<datalist id="emotes">
+  @for(emote of emoteList; track emote; let idx = $index) {
+    <option>
+      <div>{{emote}}</div>
+    </option>
+  }
+</datalist>

@@ -336,6 +336,12 @@ body:has(#upgrade-7:hover) #upgrade-description-7 { display: flex; }
 
   background-color: var(--background-color2);
   border: 0.1rem solid var(--background-color3);
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: gray var(--background-color2);
 }
 .rightSide {
   display: flex;

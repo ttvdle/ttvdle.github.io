@@ -26,7 +26,7 @@
 </div>
 <form *ngIf="score != 100 && level < 7" [formGroup]="guessForm" (ngSubmit)="guessEmote()" class="guess-form">
   <div class="input-form">
-    <input type="text" id="guess" formControlName="guess" class="form-control" placeholder="np. VaporeonFeet">
+    <input type="text" id="guess" formControlName="guess" class="form-control" placeholder="np. VaporeonFeet" (blur)="autofocus()" autofucus #input>
     <button type="button" (click)="lose()" [disabled]="level > 6 || score == 100">Skip</button>
   </div>
   <div class="guess-clue" *ngIf="level > 1 && level < 7">
@@ -42,7 +42,8 @@
 <div class="next-info">
   <div *ngIf="level > 6 && score < 100">holipka :(</div>
   <div *ngIf="score == 100">gg</div>
-  <button *ngIf="level > 6 || score == 100" (click)="next()">Go Next</button>
+  <input type="hidden" id="next-button-input" *ngIf="level > 6 || score == 100" (blur)="autofocus()" (keydown.enter)="next()">
+  <button id="next-button" *ngIf="level > 6 || score == 100" (click)="next()">Go Next</button>
 </div>
 <div class="mode-note">
   W zależności od prędkości internetu, pobieranie kolejnych emotek może zająć kilka sekund. Powinno być widać zmiane za blurem.
